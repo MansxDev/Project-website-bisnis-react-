@@ -1,68 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './output.css';
-import TrueFocus from './components/animations/TrueFocus.jsx';
-import BlurText from './components/animations/BlurText.jsx';
+import BlurText from './components/animations/BlurText.js'; 
+import RotatingText from './components/animations/RotatingText'; 
 
-function formatCurrency(price) {
-    return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 0
-    }).format(price);
-}
-
-const useScrollAnimation = (threshold = 0.2) => {
-  const elementRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold }
-    );
-
-    const currentElement = elementRef.current;
-
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
-
-    return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
-    };
-  }, [threshold]);
-
-  return [elementRef, isVisible];
-};
-
-const scrollToSection = (id) => {
-  const element = document.querySelector(id);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-};
-
-const allProductData = [
-    { id: 'vps-basic', name: 'VPS Basic', description: '1 vCPU, 1GB RAM, 20GB SSD', price: 50000, category: 'vps' },
-    { id: 'vps-medium', name: 'VPS Medium', description: '2 vCPU, 4GB RAM, 50GB SSD', price: 150000, category: 'vps' },
-    { id: 'vps-pro', name: 'VPS Pro', description: '4 vCPU, 8GB RAM, 100GB SSD', price: 300000, category: 'vps' },
-    { id: 'bot-wa-marketing', name: 'Bot Marketing WA', description: 'Auto-reply & Broadcast Message', price: 150000, category: 'bot-wa' },
-    { id: 'bot-wa-support', name: 'Bot Support WA', description: 'Customer Service Otomatis', price: 200000, category: 'bot-wa' },
-    { id: 'website-toko', name: 'Website Toko', description: 'Full CMS & Payment Gateway', price: 2500000, category: 'website' },
-    { id: 'website-perusahaan', name: 'Website Perusahaan', description: 'Profil Perusahaan Profesional', price: 5000000, category: 'website' },
-];
-
-const serviceData = [
-    { id: 'web-dev-custom', name: 'Pengembangan Web Kustom', description: 'Buat website impian Anda dari nol', price: 5000000, features: ['Analisis Kebutuhan', 'Desain & Development', 'Testing & Deployment'] },
-    { id: 'seo', name: 'Optimisasi Mesin Pencari (SEO)', description: 'Tingkatkan visibilitas website Anda', price: 1000000, interval: '/bulan', features: ['Riset Keyword', 'Optimisasi On-Page', 'Strategi Off-Page'] },
-    { id: 'sosial-media', name: 'Manajemen Media Sosial', description: 'Kelola dan kembangkan media sosial Anda', price: 2000000, interval: '/bulan', features: ['Pembuatan Konten', 'Penjadwalan Posting', 'Analisis Performa'] },
-    { id: 'graphic-design', name: 'Jasa Desain Grafis', description: 'Buat visual branding yang menarik', price: 500000, interval: '/item', features: ['Desain Logo', 'Banner & Poster', 'Material Promosi'] },
-    { id: 'hosting', name: 'Layanan Hosting', description: 'Hosting cepat dan andal', price: 100000, interval: '/bulan', features: ['SSL Gratis', 'Backup Harian', 'Support 24/7'] },
-];
+import {
+    formatCurrency,
+    useScrollAnimation,
+    scrollToSection,
+    allProductData,
+    serviceData
+} from './utils/utils.js'; 
 
 const CartDropdown = ({ cart, totalCartItems, updateQuantity, removeItem }) => {
     const totalCartPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -118,9 +65,11 @@ const CartDropdown = ({ cart, totalCartItems, updateQuantity, removeItem }) => {
 
 const Navbar = ({ totalCartItems, cart, updateQuantity, removeItem, isScrolled, scrollToSection }) => {
   return (
-    <div className={`navbar sticky top-0 z-50 shadow text-white backdrop-blur-sm rounded transition-colors duration-300 ${isScrolled ? 'bg-opacity-90' : 'bg-opacity-70'}`}>
+    <div className={`navbar sticky top-0 z-50 shadow text-white backdrop-blur-sm rounded transition-colors duration-300 ${isScrolled ? 'bg-opacity-90' : 'bg-opacity-70'}
+              px-4 sm:px-6 md:px-8 lg:px-12
+    `}>
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl" onClick={() => scrollToSection('#top')}>WebMansX</a>
+        <a className="btn btn-ghost normal-case text-lg sm:text-xl md:text-2xl" onClick={() => scrollToSection('#top')}>WebMansX</a>
       </div>
       <div className="flex-none">
         <CartDropdown cart={cart} totalCartItems={totalCartItems} updateQuantity={updateQuantity} removeItem={removeItem} />
@@ -148,19 +97,37 @@ const HeroSection = ({ scrollToSection }) => {
     };
 
   return (
-    <div className="hero min-h-screen text-gray-800 dark:text-white py-10">
+
+    <div className="hero min-h-screen text-gray-800 dark:text-white py-10 flex items-center justify-center">
       <div className="hero-content text-center">
-        <div className="max-w-md">
-          <h1 className="text-5xl font-bold">Halo Semuanya</h1>
-          <p className="py-6 text-xl">
+
+        <div className="max-w-xs sm:max-w-md md:max-w-lg mx-auto">
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">Halo Semuanya</h1>
+
+
+          <p className="py-4 sm:py-6 text-base sm:text-lg md:text-xl leading-relaxed mb-8">
              <BlurText
-                text="Tempat semua tools yang Anda butuhkan ada di sini"
+                text="Website Yang Menyediakan all kebutuhan kamu"
                 delay={150}
                 animateBy="words"
                 direction="top"
                 onAnimationComplete={handleBlurAnimationComplete}
                 className="inline-block"
              />
+             
+             <RotatingText
+                texts={['klik', 'tombol', 'di', 'bawah']}
+                mainClassName="px-2 sm:px-2 md:px-3 bg-yellow-500 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+                staggerFrom={"last"}
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+            />
            </p>
 
           <button className="btn btn-primary animated-glow" onClick={() => scrollToSection('#product-section')}>Mulai Sekarang</button>
@@ -184,19 +151,21 @@ const ProductCard = ({ product, addToCart }) => {
     }
   };
 
-  const cardClasses = `card w-80 shrink-0 product-card scroll-animation bg-base-100 dark:bg-gray-800 shadow-xl ${animationClasses} category-${product.category}`;
+  const cardClasses = `card w-80 shrink-0 product-card scroll-animation bg-base-100 shadow-xl ${animationClasses}
+  category-${product.category}`;
 
   return (
     <div ref={elementRef} className={cardClasses} data-product-id={product.id}>
       <div className={`badge absolute right-2 top-2 ${getBadgeColor(product.category)}`}>
           {product.category === 'vps' ? 'VPS' : product.category === 'bot-wa' ? 'Bot WA' : product.category === 'website' ? 'Website' : product.category}
       </div>
-      <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt={product.name}/></figure>
+      <figure><img src={product.image} alt={product.name} className="min-w-full h-48
+      object-cover rounded-lg card-side"/></figure>
       <div className="card-body">
         <h3 className="card-title">{product.name}</h3>
         <p className="text-sm text-gray-700 dark:text-gray-300">{product.description}</p>
 
-        <span className="text-2xl font-bold text-primary mt-4 block">{`Rp${product.price.toLocaleString('id-ID')}`} {product.category === 'vps' || product.category === 'bot-wa' ? '/bulan' : ''}</span>
+        <span className="text-2xl font-bold text-white mt-4 block">{`Rp${product.price.toLocaleString('id-ID')}`} {product.category === 'vps' || product.category === 'bot-wa' ? '/bulan' : ''}</span>
 
         <div className="card-actions flex items-center gap-2 mt-2 justify-end">
           <button className="btn btn-primary btn-sm buy-now-btn">
@@ -217,7 +186,9 @@ const ProductCard = ({ product, addToCart }) => {
   );
 };
 
-const ProductSection = ({ products, addToCart, velocity }) => {
+
+
+const ProductSection = ({ products, addToCart }) => { 
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const filteredProducts = selectedCategory === 'all'
@@ -226,7 +197,7 @@ const ProductSection = ({ products, addToCart, velocity }) => {
 
   return (
     <section className="container mx-auto px-4 py-10" id="product-section">
-      <h2 className="text-3xl font-bold text-center mb-8">Produk Kami</h2>
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8">Produk Kami</h2>
 
       <div className="flex justify-center mb-8">
         <div className="dropdown">
@@ -242,9 +213,11 @@ const ProductSection = ({ products, addToCart, velocity }) => {
         </div>
       </div>
 
-      <div className="flex overflow-x-auto pb-4 scrollbar-hide space-x-4">
+      <div className="flex overflow-x-auto pb-4 scrollbar-hide space-x-4
+                  md:grid md:grid-cols-2 md:gap-6 md:space-x-0
+                  lg:grid-cols-3 lg:gap-8">
         {filteredProducts.map(product => (
-           <div key={product.id} className="shrink-0 w-80">
+           <div key={product.id} className="shrink-0 w-80 md:w-auto">
              <ProductCard
                product={product}
                addToCart={addToCart}
@@ -254,18 +227,10 @@ const ProductSection = ({ products, addToCart, velocity }) => {
       </div>
 
 
-<TrueFocus 
-sentence="beli ngab"
-manualMode={false}
-blurAmount={5}
-borderColor="red"
-animationDuration={1}
-pauseBetweenAnimations={1}
-/>
-
     </section>
   );
 };
+
 
 const ServiceCard = ({ service }) => {
     const [elementRef, isVisible] = useScrollAnimation(0.2);
@@ -276,7 +241,8 @@ const ServiceCard = ({ service }) => {
 
   return (
     <div ref={elementRef} className={cardClasses}>
-      <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt={service.name} className="min-w-full h-48 object-cover"/></figure>
+      {/* Menggunakan service.image di sini */}
+      <figure><img src={service.image} alt={service.name} className="min-w-full h-48 object-cover"/></figure>
       <div className="card-body">
         <h3 className="card-title">{service.name}</h3>
         <p className="text-sm text-gray-700 dark:text-gray-300">{service.description}</p>
@@ -297,11 +263,15 @@ const ServiceCard = ({ service }) => {
 const ServiceSection = ({ services }) => {
   return (
     <section className="container mx-auto px-4 py-10" id="service-section">
-      <h2 className="text-3xl font-bold text-center mb-8">Layanan Kami</h2>
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8">Layanan Kami</h2>
 
-      <div className="flex overflow-x-auto pb-4 scrollbar-hide space-x-4">
+      <div className="flex overflow-x-auto pb-4 scrollbar-hide space-x-4
+                  md:grid md:grid-cols-2 md:gap-6 md:space-x-0
+                  lg:grid-cols-3 lg:gap-8">
         {services.map(service => (
-          <ServiceCard key={service.id} service={service} />
+          <div key={service.id} className="shrink-0 w-80 md:w-auto">
+            <ServiceCard service={service} />
+          </div>
         ))}
       </div>
     </section>
@@ -309,49 +279,102 @@ const ServiceSection = ({ services }) => {
 };
 
 const ContactSection = () => {
-    const [box1Ref, isBox1Visible] = useScrollAnimation(0.2);
-    const [box2Ref, isBox2Visible] = useScrollAnimation(0.2);
+  const [box1Ref, isBox1Visible] = useScrollAnimation(0.2);
+  const [box2Ref, isBox2Visible] = useScrollAnimation(0.2);
 
   return (
-    <section className="bg-base-200 py-16 text-gray-800 dark:text-white" id="contact">
-        <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-8">Hubungi Kami</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-                <div ref={box1Ref} className={`flex flex-col items-center p-6 bg-base-100 dark:bg-gray-800 rounded-lg shadow-xl scroll-animation ${isBox1Visible ? 'show' : ''}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-12 h-12 text-primary mb-4">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                    </svg>
-                    <h3 className="text-xl font-semibold mb-2">Email</h3>
-                    <p className="text-gray-700 dark:text-gray-300">Kirimkan pesan Anda melalui email.</p>
-                   <a href="mailto:mansx.develover@gmail.com" className="btn btn-primary btn-sm mt-4">mansx.develover@gmail.com</a>
-                </div>
+    <section className="py-10 sm:py-12 md:py-16 text-gray-800 dark:text-white" id="contact">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 text-center">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8">Hubungi Kami</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 max-w-2xl mx-auto">
+          {/* Email Box */}
+          <div
+            ref={box1Ref}
+            className={`flex flex-col items-center p-4 sm:p-6 bg-base-100 dark:bg-gray-800 rounded-lg shadow-xl scroll-animation ${
+              isBox1Visible ? 'show' : ''
+            }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-10 h-10 sm:w-12 sm:h-12 text-primary mb-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+              />
+            </svg>
+            <h3 className="text-lg sm:text-xl font-semibold mb-2">Email</h3>
+            <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+              Kirimkan pesan Anda melalui email.
+            </p>
+            <a
+              href="mailto:mansx.develover@gmail.com"
+              className="btn btn-primary btn-sm mt-4 text-xs sm:text-sm"
+            >
+              mansx.develover@gmail.com
+            </a>
+          </div>
 
-                <div ref={box2Ref} className={`flex flex-col items-center p-6 bg-base-100 dark:bg-gray-800 rounded-lg shadow-xl scroll-animation ${isBox2Visible ? 'show' : ''}`}>
-                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-12 h-12 text-green-500 mb-4">
-                       <path d="M19.006 3.705a8.79 8.79 0 0 0-3.879 1.024c-.371.22-.757.426-1.154.614a1.867 1.867 0 0 1-2.015-.368l-1.26-1.26a1.866 1.866 0 0 0-2.638 0l-.7.7c-2.317 2.318-3.394 4.837-3.394 7.464 0 2.762 1.318 5.28 3.714 7.677 2.395 2.396 4.913 3.713 7.676 3.713 2.627 0 5.146-1.077 7.464-3.394l.7-.7a1.866 1.866 0 0 0 0-2.638l-1.26-1.26a1.867 1.867 0 0 1-.368-2.015c.188-.397.394-.783.614-1.154a8.789 8.789 0 0 0 1.024-3.879v-.005h-12" />
-                    </svg>
-                    <h3 className="text-xl font-semibold mb-2">WhatsApp</h3>
-                    <p className="text-gray-700 dark:text-gray-300">Hubungi kami langsung via WhatsApp.</p>
-                    <a href="https://wa.me/6281546543913" target="_blank" className="btn btn-success btn-sm mt-4">+62 815-4654-3913</a>
-                </div>
-            </div>
+          
+          <div
+            ref={box2Ref}
+            className={`flex flex-col items-center p-4 sm:p-6 bg-base-100 dark:bg-gray-800 rounded-lg shadow-xl scroll-animation ${
+              isBox2Visible ? 'show' : ''
+            }`}
+          >
+            <svg
+              viewBox="0 0 256 259"
+              width="64"
+              height="64"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid"
+              className="w-10 h-10 sm:w-12 sm:h-12 mb-4"
+            >
+              <path
+                d="m67.663 221.823 4.185 2.093c17.44 10.463 36.971 15.346 56.503 15.346 61.385 0 111.609-50.224 111.609-111.609 0-29.297-11.859-57.897-32.785-78.824-20.927-20.927-48.83-32.785-78.824-32.785-61.385 0-111.61 50.224-110.912 112.307 0 20.926 6.278 41.156 16.741 58.594l2.79 4.186-11.16 41.156 41.853-10.464Z"
+                fill="#00E676"
+              />
+              <path
+                d="M219.033 37.668C195.316 13.254 162.531 0 129.048 0 57.898 0 .698 57.897 1.395 128.35c0 22.322 6.278 43.947 16.742 63.478L0 258.096l67.663-17.439c18.834 10.464 39.76 15.347 60.688 15.347 70.453 0 127.653-57.898 127.653-128.35 0-34.181-13.254-66.269-36.97-89.986ZM129.048 234.38c-18.834 0-37.668-4.882-53.712-14.648l-4.185-2.093-40.458 10.463 10.463-39.76-2.79-4.186C7.673 134.63 22.322 69.058 72.546 38.365c50.224-30.692 115.097-16.043 145.79 34.181 30.692 50.224 16.043 115.097-34.18 145.79-16.045 10.463-35.576 16.043-55.108 16.043Zm61.385-77.428-7.673-3.488s-11.16-4.883-18.136-8.371c-.698 0-1.395-.698-2.093-.698-2.093 0-3.488.698-4.883 1.396 0 0-.697.697-10.463 11.858-.698 1.395-2.093 2.093-3.488 2.093h-.698c-.697 0-2.092-.698-2.79-1.395l-3.488-1.395c-7.673-3.488-14.648-7.674-20.229-13.254-1.395-1.395-3.488-2.79-4.883-4.185-4.883-4.883-9.766-10.464-13.253-16.742l-.698-1.395c-.697-.698-.697-1.395-1.395-2.79 0-1.395 0-2.79.698-3.488 0 0 2.79-3.488 4.882-5.58 1.396-1.396 2.093-3.488 3.488-4.883 1.395-2.093 2.093-4.883 1.395-6.976-.697-3.488-9.068-22.322-11.16-26.507-1.396-2.093-2.79-2.79-4.883-3.488H83.01c-1.396 0-2.79.698-4.186.698l-.698.697c-1.395.698-2.79 2.093-4.185 2.79-1.395 1.396-2.093 2.79-3.488 4.186-4.883 6.278-7.673 13.951-7.673 21.624 0 5.58 1.395 11.161 3.488 16.044l.698 2.093c6.278 13.253 14.648 25.112 25.81 35.575l2.79 2.79c2.092 2.093 4.185 3.488 5.58 5.58 14.649 12.557 31.39 21.625 50.224 26.508 2.093.697 4.883.697 6.976 1.395h6.975c3.488 0 7.673-1.395 10.464-2.79 2.092-1.395 3.487-1.395 4.882-2.79l1.396-1.396c1.395-1.395 2.79-2.092 4.185-3.487 1.395-1.395 2.79-2.79 3.488-4.186 1.395-2.79 2.092-6.278 2.79-9.765v-4.883s-.698-.698-2.093-1.395Z"
+                fill="#FFF"
+              />
+            </svg>
+            <h3 className="text-lg sm:text-xl font-semibold mb-2">WhatsApp</h3>
+            <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+              Hubungi kami langsung via WhatsApp.
+            </p>
+            <a
+              href="https://wa.me/6281546543913"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-success btn-sm mt-4 text-xs sm:text-sm"
+            >
+              +62 815-4654-3913
+            </a>
+          </div>
         </div>
+      </div>
     </section>
   );
 };
 
 const Footer = () => {
   return (
-    <footer className="footer footer-center p-10 bg-blue-500 text-white">
+    <footer className="footer footer-center p-6 sm:p-8 md:p-10 bg-gray-500 text-white">
         <aside>
-            <p className="font-bold text-lg">
+            <p className="font-bold text-base sm:text-lg md:text-xl">
                 MANSX <br />
                 WEB DEVELOPER
             </p>
-            <p>Memberikan solusi digital terbaik sejak 2025.</p>
+            <p className="text-sm sm:text-base">Memberikan solusi digital terbaik sejak 2025.</p>
         </aside>
         <nav>
-            <div className="grid grid-flow-col gap-4">
+            <div className="grid grid-flow-col gap-3 sm:gap-4">
                  <a href="https://instagram.com/shophosting" target="_blank" className="link link-hover tooltip" data-tip="Instagram">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.07 4.85-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069-3.205 0-3.584-.012-4.85-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.068-1.644-.068-4.85 0-3.204.012-3.584.07-4.85.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.668.014-4.949.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.69-.073 4.949 0 3.259.014 3.668.072 4.949.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.69.073 4.949.073 3.259 0 3.668-.014 4.949-.072 4.354-.2 6.78-2.618 6.979-6.98.059-1.281.073-1.69.073-4.949 0-3.259-.014-3.668-.072-4.949-.199-4.358-2.618-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162S15.403 5.838 12 5.838zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm7.846-10.405c0-.795-.646-1.44-1.44-1.44s-1.44.645-1.44 1.44.646 1.44 1.44 1.44 1.44-.645 1.44-1.44z"/></svg>
                 </a>
@@ -364,7 +387,7 @@ const Footer = () => {
             </div>
         </nav>
         <aside>
-            <p>Copyright © 2025 - All right reserved by MansX.Dev</p>
+            <p className="text-xs sm:text-sm">Copyright © 2025 - All right reserved by MansX.Dev</p>
         </aside>
     </footer>
   );
@@ -373,7 +396,6 @@ const Footer = () => {
 function App() {
   const [cart, setCart] = useState([]);
   const [isNavbarScrolled, setIsNavbarScrolled] = useState(false);
-  const [scrollVelocity, setScrollVelocity] = useState(0);
   const lastScrollY = useRef(0);
   const lastScrollTime = useRef(Date.now());
 
@@ -384,9 +406,8 @@ function App() {
       const deltaTime = currentScrollTime - lastScrollTime.current;
       const deltaY = currentScrollY - lastScrollY.current;
 
+
       if (deltaTime > 0) {
-          const velocity = Math.abs(deltaY / deltaTime) * 150;
-          setScrollVelocity(velocity);
       }
 
       setIsNavbarScrolled(window.scrollY > 50);
@@ -434,7 +455,7 @@ function App() {
    const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div id="top" className="bg-blue-600 dark:bg-gray-900 text-gray-800 dark:text-white" data-theme="dark">
+    <div id="top" className="bg-base-200 font-bold text-gray-800 dark:text-white">
       <Navbar
         totalCartItems={totalCartItems}
         cart={cart}
@@ -444,7 +465,7 @@ function App() {
         scrollToSection={scrollToSection}
       />
       <HeroSection scrollToSection={scrollToSection} />
-      <ProductSection products={allProductData} addToCart={addToCart} velocity={scrollVelocity} />
+      <ProductSection products={allProductData} addToCart={addToCart} />
       <ServiceSection services={serviceData} />
       <ContactSection />
       <Footer />
