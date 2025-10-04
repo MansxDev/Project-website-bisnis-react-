@@ -31,8 +31,8 @@ const ProductCard = ({ product, addToCart }) => {
       <figure><img src={product.image} alt={product.name} className="min-w-full h-48
       object-cover rounded-lg card-side"/></figure>
       <div className="card-body">
-        <h3 className="card-title">{product.name}</h3>
-        <p className="text-sm text-gray-700 dark:text-gray-300">{product.description}</p>
+        <h3 className="card-title text-white">{product.name}</h3>
+        <p className="text-sm text-white ">{product.description}</p>
 
         <span className="text-2xl font-bold text-white mt-4 block">{`Rp${product.price.toLocaleString('id-ID')}`} {product.category === 'vps' || product.category === 'bot-wa' ? '/bulan' : ''}</span>
 

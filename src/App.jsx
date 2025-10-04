@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <footer className="footer footer-center p-6 sm:p-8 md:p-10 bg-gray-500 text-white">
         <aside>
-            <p className="font-bold text-base sm:text-lg md:text-xl">
+            <p className="font-bold text-white sm:text-lg md:text-xl">
                 MANSX <br />
                 WEB DEVELOPER
             </p>
@@ -65,7 +65,7 @@ function App() {
   }, []);
 
   return (
-    <div id="top" className="bg-base-200 font-bold text-gray-800 dark:text-white">
+    <div id="top" className="bg-base-200 font-bold text-white">
       <Navbar
         totalCartItems={totalCartItems}
         cart={cart}

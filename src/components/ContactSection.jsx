@@ -8,7 +8,7 @@ const ContactSection = () => {
   const [box2Ref, isBox2Visible] = useScrollAnimation(0.2);
 
   return (
-    <section className="py-10 sm:py-12 md:py-16 text-gray-800 dark:text-white" id="contact">
+    <section className="py-10 sm:py-12 md:py-16 text-white " id="contact">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 text-center">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8">Hubungi Kami</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 max-w-2xl mx-auto">
@@ -34,7 +34,7 @@ const ContactSection = () => {
               />
             </svg>
             <h3 className="text-lg sm:text-xl font-semibold mb-2">Email</h3>
-            <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+            <p className="text-sm sm:text-base text-white">
               Kirimkan pesan Anda melalui email.
             </p>
             <a
@@ -70,7 +70,7 @@ const ContactSection = () => {
               />
             </svg>
             <h3 className="text-lg sm:text-xl font-semibold mb-2">WhatsApp</h3>
-            <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+            <p className="text-sm sm:text-base text-white">
               Hubungi kami langsung via WhatsApp.
             </p>
             <a

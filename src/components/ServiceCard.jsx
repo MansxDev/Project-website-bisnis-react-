@@ -15,9 +15,9 @@ const ServiceCard = ({ service }) => {
       {/* Menggunakan service.image di sini */}
       <figure><img src={service.image} alt={service.name} className="min-w-full h-48 object-cover"/></figure>
       <div className="card-body">
-        <h3 className="card-title">{service.name}</h3>
-        <p className="text-sm text-gray-700 dark:text-gray-300">{service.description}</p>
-        <ul className="list-disc list-inside text-sm mt-2 text-gray-700 dark:text-gray-300">
+        <h3 className="card-title text-white">{service.name}</h3>
+        <p className="text-sm text-white">{service.description}</p>
+        <ul className="list-disc list-inside text-sm mt-2 text-white">
            {service.features.map((feature, index) => (
                <li key={index}>{feature}</li>
            ))}

@@ -18,8 +18,8 @@ const CartDropdown = ({ cart, totalCartItems, updateQuantity, removeItem }) => {
                     </span>
                 </div>
             </label>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 dark:bg-gray-700 rounded-box w-72 text-gray-800 dark:text-white">
-                <h4 className="font-bold px-4 py-2 border-b border-gray-200 dark:border-gray-600">Keranjang Belanja</h4>
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100  rounded-box w-72 text-white">
+                <h4 className="font-bold px-4 py-2 border-b border-gray-200 ">Keranjang Belanja</h4>
                 <div>
                     {cart.length === 0 ? (
                         <li className="px-4 py-2 text-center text-gray-500 dark:text-gray-400">Keranjang kosong</li>
@@ -76,7 +76,7 @@ const Navbar = ({ totalCartItems, cart, updateQuantity, removeItem, isScrolled, 
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
             </svg>
           </label>
-          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 dark:bg-gray-700 rounded-box w-52 text-gray-800 dark:text-white">
+          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100  rounded-box w-52 text-white">
             {/* Tambahkan href untuk setiap item menu */}
             <li><a href="#product-section" onClick={() => scrollToSection('#product-section')} className="nav-link">Produk</a></li>
             <li><a href="#service-section" onClick={() => scrollToSection('#service-section')} className="nav-link">Layanan</a></li>

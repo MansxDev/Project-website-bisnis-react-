@@ -9,7 +9,7 @@ const HeroSection = ({ scrollToSection }) => {
 
   return (
 
-    <div className="hero min-h-screen text-gray-800 dark:text-white py-10 flex items-center justify-center">
+    <div className="hero min-h-screen text-white py-10 flex items-center justify-center">
       <div className="hero-content text-center">
 
         <div className="max-w-xs sm:max-w-md md:max-w-lg mx-auto">
