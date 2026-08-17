@@ -5,6 +5,7 @@ export const serviceData = [
     description: 'Buat website impian Anda dari nol',
     image: 'https://files.catbox.moe/31synt.jpg',
     price: 5000000,
+    popular: true,
     features: ['Analisis Kebutuhan', 'Desain & Development', 'Testing & Deployment'],
   },
   {

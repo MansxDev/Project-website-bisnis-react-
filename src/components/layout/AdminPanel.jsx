@@ -52,6 +52,7 @@ const SERVICE_FIELDS = [
   { name: 'description', label: 'Deskripsi', type: 'textarea', rows: 2 },
   { name: 'price', label: 'Harga (Rp)', type: 'number' },
   { name: 'interval', label: 'Interval (mis. /bulan)', type: 'text' },
+  { name: 'popular', label: 'Badge "Most Popular"', type: 'toggle' },
   { name: 'features', label: 'Fitur (1 per baris)', type: 'list' },
   { name: 'image', label: 'URL Gambar', type: 'image' },
 ];

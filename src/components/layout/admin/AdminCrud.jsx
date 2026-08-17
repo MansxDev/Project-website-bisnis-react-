@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../../ui/Modal.jsx';
 import { useCollection } from '../../../data/store.js';
+import useConfirm from '../../../hooks/useConfirm.js';
 import { FaPlus, FaPen, FaTrashCan, FaMagnifyingGlass, FaArrowRotateLeft } from 'react-icons/fa6';
 import { logAudit } from '../../../utils/auth.js';
 import toast from 'react-hot-toast';
@@ -117,6 +118,7 @@ const CellValue = ({ field, value }) => {
 
 const AdminCrud = ({ collection, title, fields, addLabel = 'Tambah' }) => {
   const { data, add, update, remove, reset } = useCollection(collection);
+  const [confirm, confirmDialog] = useConfirm();
   const [editing, setEditing] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -152,13 +154,17 @@ const AdminCrud = ({ collection, title, fields, addLabel = 'Tambah' }) => {
     setModalOpen(false);
   };
 
-  const handleRemove = (item) => {
+  const handleRemove = async (item) => {
     const label = item.name || item.code || item.question || item.id || '';
-    if (window.confirm(`Hapus "${label}"?`)) {
-      remove(item.id);
-      logAudit(`Hapus ${title}`, label);
-      toast.success('Data dihapus.');
-    }
+    const ok = await confirm(`Yakin ingin menghapus "${label}"? Data ini tidak bisa dikembalikan.`, {
+      title: 'Hapus Data',
+      confirmLabel: 'Hapus',
+      variant: 'danger',
+    });
+    if (!ok) return;
+    remove(item.id);
+    logAudit(`Hapus ${title}`, label);
+    toast.success('Data dihapus.');
   };
 
   const filtered = search.trim()
@@ -292,6 +298,8 @@ const AdminCrud = ({ collection, title, fields, addLabel = 'Tambah' }) => {
           </div>
         </form>
       </Modal>
+
+      {confirmDialog}
     </div>
   );
 };

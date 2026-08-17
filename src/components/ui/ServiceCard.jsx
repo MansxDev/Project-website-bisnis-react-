@@ -2,6 +2,7 @@ import React from 'react';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
 import { formatCurrency } from '../../utils/format.js';
 import { useStore, KEYS } from '../../data/store.js';
+import { FaCheck } from 'react-icons/fa6';
 
 const ServiceCard = ({ service }) => {
   const [elementRef, isVisible] = useScrollAnimation(0.15);
@@ -10,41 +11,40 @@ const ServiceCard = ({ service }) => {
   return (
     <div
       ref={elementRef}
-      className={`card w-80 shrink-0 scroll-animation bg-base-100 shadow-xl border border-base-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ${
-        isVisible ? 'show' : ''
-      }`}
+      className={`card w-80 shrink-0 scroll-animation bg-base-100 shadow-sm border transition-all duration-300 ${
+        service.popular
+          ? 'border-primary shadow-xl shadow-primary/10'
+          : 'border-base-200 hover:shadow-xl hover:-translate-y-1'
+      } ${isVisible ? 'show' : ''}`}
     >
-      <figure className="px-4 pt-4">
-        <img
-          src={service.image}
-          alt={service.name}
-          className="w-full h-44 object-cover rounded-xl"
-          loading="lazy"
-        />
-      </figure>
       <div className="card-body">
-        <h3 className="card-title">{service.name}</h3>
-        <p className="text-sm text-base-content/70">{service.description}</p>
-        <ul className="list-disc list-inside text-sm mt-2 text-base-content/80 space-y-1">
+        {service.popular && (
+          <span className="badge badge-warning badge-xs self-start">Most Popular</span>
+        )}
+        <div className="flex flex-wrap justify-between items-start gap-2">
+          <h2 className="text-xl font-bold font-display leading-tight">{service.name}</h2>
+          <span className="text-lg font-bold text-primary whitespace-nowrap">
+            {formatCurrency(service.price)}
+            <span className="text-xs font-medium text-base-content/50">
+              {service.interval || ''}
+            </span>
+          </span>
+        </div>
+        <p className="text-xs text-base-content/70">{service.description}</p>
+        <ul className="mt-4 flex flex-col gap-2 text-xs">
           {service.features.map((feature, index) => (
-            <li key={index}>{feature}</li>
+            <li key={index} className="flex items-start gap-2">
+              <FaCheck className="size-4 mt-0.5 text-success shrink-0" />
+              <span>{feature}</span>
+            </li>
           ))}
         </ul>
-        <div className="mt-4 flex items-center justify-between">
-          <div>
-            <span className="text-xs text-base-content/50">Mulai dari</span>
-            <div>
-              <span className="text-xl font-bold text-primary">
-                {formatCurrency(service.price)}
-              </span>
-              <span className="text-sm text-base-content/60">{service.interval || ''}</span>
-            </div>
-          </div>
+        <div className="mt-6">
           <a
             href={`https://wa.me/${settings.phone}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-primary btn-sm"
+            className="btn btn-primary btn-block"
           >
             Konsultasi
           </a>

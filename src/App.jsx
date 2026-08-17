@@ -1,5 +1,5 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react';
-import { Toaster } from 'react-hot-toast';
+import ThemedToaster from './components/ui/ThemedToaster.jsx';
 import PillNav from './components/layout/PillNav.jsx';
 import UtilityCluster from './components/layout/UtilityCluster.jsx';
 import ThemeToggle from './components/layout/ThemeToggle.jsx';
@@ -147,7 +147,7 @@ function App() {
         <ContactSection />
       </main>
       <Footer />
-      <Toaster position="top-center" />
+      <ThemedToaster />
     </div>
   );
 }

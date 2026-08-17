@@ -13,6 +13,7 @@ import {
   logAudit,
 } from '../../../utils/auth.js';
 import ReauthModal from './ReauthModal.jsx';
+import useConfirm from '../../../hooks/useConfirm.js';
 import toast from 'react-hot-toast';
 
 const SETTING_FIELDS = [
@@ -29,6 +30,7 @@ const AdminSettings = () => {
   const { data: settings, replace } = useCollection(KEYS.settings);
   const [form, setForm] = useState({ ...settings });
   const fileRef = useRef(null);
+  const [confirm, confirmDialog] = useConfirm();
 
   const [pwForm, setPwForm] = useState({ current: '', next: '', confirm: '' });
   const [pwLoading, setPwLoading] = useState(false);
@@ -81,16 +83,20 @@ const AdminSettings = () => {
     setPendingAction(null);
   };
 
-  const handleImport = () => {
-    if (window.confirm('Impor akan menimpa seluruh data saat ini. Lanjutkan?')) {
-      setPendingAction('import');
-    }
+  const handleImport = async () => {
+    const ok = await confirm(
+      'Impor akan menimpa seluruh data saat ini. Lanjutkan?',
+      { title: 'Konfirmasi Import', confirmLabel: 'Lanjut', variant: 'danger' }
+    );
+    if (ok) setPendingAction('import');
   };
 
-  const handleReset = () => {
-    if (window.confirm('Reset semua data ke pengaturan awal? Tindakan ini tidak bisa dibatalkan.')) {
-      setPendingAction('reset');
-    }
+  const handleReset = async () => {
+    const ok = await confirm(
+      'Reset semua data ke pengaturan awal? Tindakan ini tidak bisa dibatalkan.',
+      { title: 'Konfirmasi Reset', confirmLabel: 'Reset', variant: 'danger' }
+    );
+    if (ok) setPendingAction('reset');
   };
 
   const runReset = () => {
@@ -262,6 +268,8 @@ const AdminSettings = () => {
         title="Konfirmasi Reset"
         description="Semua data akan dikembalikan ke pengaturan awal. Verifikasi password untuk melanjutkan."
       />
+
+      {confirmDialog}
     </div>
   );
 };

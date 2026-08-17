@@ -2,10 +2,12 @@ import React from 'react';
 import { FaTrashCan, FaEnvelope, FaEnvelopeOpen } from 'react-icons/fa6';
 import { useCollection, KEYS } from '../../../data/store.js';
 import { logAudit } from '../../../utils/auth.js';
+import useConfirm from '../../../hooks/useConfirm.js';
 import toast from 'react-hot-toast';
 
 const AdminMessages = () => {
   const { data: messages, update, remove } = useCollection(KEYS.messages);
+  const [confirm, confirmDialog] = useConfirm();
 
   const sorted = [...messages].sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -14,12 +16,15 @@ const AdminMessages = () => {
     logAudit(msg.read ? 'Pesan ditandai belum dibaca' : 'Pesan ditandai dibaca', `Dari ${msg.name}`);
   };
 
-  const handleDelete = (msg) => {
-    if (window.confirm(`Hapus pesan dari ${msg.name}?`)) {
-      remove(msg.id);
-      logAudit('Pesan dihapus', `Dari ${msg.name}`);
-      toast.success('Pesan dihapus.');
-    }
+  const handleDelete = async (msg) => {
+    const ok = await confirm(
+      `Yakin ingin menghapus pesan dari ${msg.name}? Pesan ini tidak bisa dikembalikan.`,
+      { title: 'Hapus Pesan', confirmLabel: 'Hapus', variant: 'danger' }
+    );
+    if (!ok) return;
+    remove(msg.id);
+    logAudit('Pesan dihapus', `Dari ${msg.name}`);
+    toast.success('Pesan dihapus.');
   };
 
   return (
@@ -82,6 +87,8 @@ const AdminMessages = () => {
           ))}
         </div>
       )}
+
+      {confirmDialog}
     </div>
   );
 };
