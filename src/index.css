@@ -2,154 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-/* === BASE === */
 @layer base {
   html {
     scroll-behavior: smooth;
   }
 
-.product-card {
-  transition: all 0.3s ease-in-out;
+  body {
+    @apply bg-base-100 text-base-content font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
 }
-  /* Custom scroll animation styles */
+
+@layer components {
   .scroll-animation {
     @apply opacity-0 translate-y-5;
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Add transition explicitly */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
 
   .scroll-animation.show {
     @apply opacity-100 translate-y-0;
   }
 
-  /* Keep existing base styles */
-  .hidden {
-    display: none;
-  }
-  .modal-box {
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-
-  .cart-item { /* Note: This class was used in thought process but not in final HTML renderCart. Keeping it in CSS in case you use it later. */
-    @apply flex items-center justify-between p-2 bg-base-200 rounded;
-  }
-
-  .quantity-controls { /* Note: This class was used in thought process but not in final HTML renderCart. Keeping it in CSS in case you use it later. */
-    @apply flex items-center gap-2;
-  }
-}
-
-
-/* === COMPONENTS === */
-@layer components {
-  /* Keep existing component styles */
-  .animated-gradient {
-    @apply bg-gradient-to-r from-blue-800 via-purple-600 to-sky-400 bg-[length:400%_400%];
-    animation: gradientBG 8s ease infinite;
-  }
-
-  .product-card {
-    @apply transition-all duration-300 ease-in-out;
-  }
-
-  /* Scrollbar hide */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
 
-  /* Add animated glow for the hero button */
-   .animated-glow {
-       animation: glow 2s infinite alternate;
-       box-shadow: 0 0 5px hsl(var(--p)); /* Use DaisyUI primary color variable */
-   }
+  .animated-gradient {
+    @apply bg-gradient-to-r from-indigo-600 via-purple-600 to-sky-400 bg-[length:400%_400%];
+    animation: gradientBG 8s ease infinite;
+  }
 
-   /* Add styles for buttons inside card actions */
-   .card-actions button {
-       transition: transform 0.2s ease;
-   }
-
-   .card-actions button:hover {
-       transform: translateY(-2px);
-   }
-
-   /* Add tooltip styles */
-   .tooltip {
-       position: relative;
-       display: inline-block;
-   }
-
-   .tooltip:hover:before,
-   .tooltip:hover:after {
-       opacity: 1;
-       visibility: visible;
-   }
-
-   .tooltip:before {
-       content: attr(data-tip);
-       position: absolute;
-       bottom: 100%;
-       left: 50%;
-       transform: translateX(-50%) translateY(-5px);
-       background-color: black;
-       color: white;
-       padding: 4px 8px;
-       border-radius: 4px;
-       font-size: 0.75rem;
-       white-space: nowrap;
-       opacity: 0;
-       visibility: hidden;
-       transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-       z-index: 10; /* Ensure tooltip is above other content */
-   }
-
-   .tooltip:after {
-       content: '';
-       position: absolute;
-       bottom: 100%;
-       left: 50%;
-       transform: translateX(-50%);
-       border-width: 5px;
-       border-style: solid;
-       border-color: black transparent transparent transparent;
-       opacity: 0;
-       visibility: hidden;
-       transition: opacity 0.3s, visibility 0.3s;
-       z-index: 10; /* Ensure tooltip is above other content */
-   }
-
+  .animated-glow {
+    animation: glow 2s infinite alternate;
+    box-shadow: 0 0 5px hsl(var(--p));
+  }
 }
 
-/* === UTILITIES === */
 @layer utilities {
-  /* Keep existing keyframes */
   @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
-  /* Add glow keyframes */
   @keyframes glow {
-      0% {
-          box-shadow: 0 0 5px hsl(var(--p)); /* Use DaisyUI primary color variable */
-      }
-      50% {
-          box-shadow: 0 0 20px hsl(var(--p)), 0 0 30px hsl(var(--p));
-      }
-      100% {
-          box-shadow: 0 0 5px hsl(var(--p));
-      }
+    0% {
+      box-shadow: 0 0 5px hsl(var(--p));
+    }
+    50% {
+      box-shadow: 0 0 20px hsl(var(--p)), 0 0 30px hsl(var(--p));
+    }
+    100% {
+      box-shadow: 0 0 5px hsl(var(--p));
+    }
   }
-
-  /* Keep existing opacity utilities */
-  .bg-opacity-90 {
-    background-opacity: 0.9;
-  }
-   .bg-opacity-70 {
-     background-opacity: 0.7;
-   }
 }

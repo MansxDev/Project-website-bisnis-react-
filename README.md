@@ -1,70 +1,172 @@
-# Getting Started with Create React App
+# MansX.Dev — Solusi Digital
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38bdf8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![daisyUI](https://img.shields.io/badge/daisyUI-3.9-5a0ef8?logo=daisyui&logoColor=white)](https://daisyui.com)
+[![PWA](https://img.shields.io/badge/PWA-ready-5A0FC8)](#-progressive-web-app)
 
-## Available Scripts
+Website bisnis satu halaman (single-page application) untuk jasa & produk digital — VPS,
+bot WhatsApp, pembuatan website, SEO, dan desain grafis — dilengkapi **toko online**, **keranjang
+belanja dengan checkout via WhatsApp**, dan **panel admin yang powerful** untuk mengelola seluruh
+data.
 
-In the project directory, you can run:
+Dibangun dengan **React 19** + **Tailwind CSS** + **daisyUI**, tanpa TypeScript dan tanpa
+React Router — tetap cepat, ringan, dan mudah di-deploy sebagai situs statis.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ✨ Fitur Utama
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Publik (Pengunjung)
+- **Hero & animasi halus** — GSAP + Framer Motion, loading animasi pada navigasi.
+- **Produk digital** — pencarian, urutkan (harga/nama), filter kategori, dan detail produk dalam
+  drawer (gambar, deskripsi, fitur, jumlah).
+- **Layanan jasa** — kartu layanan dengan harga dan CTA WhatsApp.
+- **Testimoni & FAQ** — daftar dinamis dari penyimpanan lokal.
+- **Form kontak** — pesan tersimpan otomatis ke panel admin.
+- **Keranjang belanja (cart)** — tersimpan di `localStorage`, kode promo (persen/Rp + minimal
+  belanja), dan checkout 2 langkah yang mengirim pesanan langsung ke **WhatsApp**.
+- **Mode terang/gelap** — tema kustom daisyUI, tersimpan di preferensi pengguna.
+- **Navigasi pill sticky** — adaptasi React Bits, posisi tetap di tengah desktop, slot aksi
+  (tema + keranjang) di mobile.
 
-### `npm test`
+### Admin (`#admin`)
+- **Login aman** — password di-hash (SHA-256 berulang + salt + pepper), penguncian akun setelah
+  percobaan gagal, sesi dengan idle timeout 30 menit, dan audit log semua aktivitas.
+- **Dashboard** — statistik produk/layanan/testimoni/FAQ/kupon/pesan + log aktivitas terbaru.
+- **Manajemen data (CRUD)** — produk, layanan, testimoni, FAQ, dan kupon promo dari satu panel.
+- **Pesan masuk** — inbox dari form kontak, tandai dibaca / hapus.
+- **Pengaturan** — profil bisnis (nama, tagline, kontak, sosial media), ganti password, serta
+  **export/import/reset data** dengan verifikasi ulang password.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Teknis
+- **Progressive Web App (PWA)** — `manifest.json` + service worker, bisa di-install di perangkat.
+- **SEO** — Open Graph, Twitter Card, dan data terstruktur JSON-LD.
+- **Aksesibilitas** — focus trap pada modal/drawer, label ARIA, navigasi keyboard (Esc).
+- **Performa** — panel admin di-*lazy-load*, sehingga bundle utama tetap kecil.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Mulai Cepat
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+# 1. Install dependensi
+npm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# 2. Jalankan mode pengembangan (http://localhost:3000)
+npm start
 
-### `npm run eject`
+# 3. Build produksi ke folder /build
+npm run build
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# 4. Jalankan tes
+npm test
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> Di Linux, tambahkan `CI=true` untuk menghentikan proses bila ada error:
+> `CI=true npm run build`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🧪 Skrip
 
-## Learn More
+| Skrip          | Keterangan                                                        |
+| -------------- | ----------------------------------------------------------------- |
+| `npm start`    | Menjalankan server pengembangan dengan hot-reload.                |
+| `npm run build`| Build produksi (minified + hashed) ke folder `build/`.            |
+| `npm test`     | Menjalankan test runner (Jest + React Testing Library).           |
+| `npm run eject`| Mengekspos konfigurasi CRA (satu arah, tidak bisa dibatalkan).    |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🛠 Teknologi
 
-### Code Splitting
+| Teknologi          | Peran                                      |
+| ------------------ | ------------------------------------------ |
+| **React 19**       | UI framework                               |
+| **Create React App 5** | Build tool, dev server, bundler       |
+| **Tailwind CSS 3.4**  | Utility CSS framework                  |
+| **daisyUI 3.9**    | Komponen UI + tema kustom (gelap/terang)   |
+| **Framer Motion**  | Animasi modal, drawer, transisi            |
+| **GSAP**           | Animasi teks & loading navigasi            |
+| **react-hot-toast**| Notifikasi toast                           |
+| **react-icons**    | Ikon Font Awesome 6                        |
+| **react-tooltip**  | Tooltip pada elemen                        |
+| **Web Crypto API** | Hash password admin (SHA-256 iteratif)     |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 📁 Struktur Proyek
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+src/
+├── App.jsx                  # Entry aplikasi + routing hash #admin
+├── index.js                 # Mount React + registrasi service worker
+├── components/
+│   ├── layout/              # PillNav, CartDrawer, Footer, ThemeToggle,
+│   │   │                    # UtilityCluster, AdminPanel
+│   │   └── admin/           # AdminCrud, AdminDashboard, AdminMessages,
+│   │                        # AdminSettings, ReauthModal
+│   ├── sections/            # Hero, Product, Service, Testimonial, Faq, Contact
+│   ├── ui/                  # Modal, ProductCard, ProductDetailDrawer, dst.
+│   └── animations/          # BlurText, RotatingText (GSAP)
+├── data/                    # store.js (state global) + data seed
+│                            # (products, services, testimonials, faqs, promos)
+├── hooks/                   # useCart, useTheme, useAdminAuth, useFocusTrap,
+│                            # useScrollAnimation
+├── utils/                   # auth.js, format.js, scroll.js
+└── ...
+```
 
-### Making a Progressive Web App
+### Penyimpanan Data
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Seluruh data aplikasi disimpan di `localStorage` melalui `src/data/store.js`
+(`useSyncExternalStore`). Kunci penyimpanan:
 
-### Advanced Configuration
+| Kunci                 | Isi                                   |
+| --------------------- | ------------------------------------- |
+| `mansx_products`      | Daftar produk digital                 |
+| `mansx_services`      | Daftar layanan jasa                   |
+| `mansx_testimonials`  | Testimoni pelanggan                   |
+| `mansx_faqs`          | Pertanyaan umum                       |
+| `mansx_promos`        | Kupon promo                           |
+| `mansx_messages`      | Pesan dari form kontak                |
+| `mansx_settings`      | Profil bisnis (nama, kontak, sosial)  |
+| `mansx_audit`         | Log aktivitas admin                   |
+| `mansx_cart`          | Isi keranjang belanja (via `useCart`) |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 🔐 Panel Admin
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Akses panel admin dengan menambahkan **`#admin`** pada URL, contoh:
+`https://your-domain.com/#admin`.
 
-### `npm run build` fails to minify
+- **Password awal:** `admin123` — **wajib diganti saat login pertama**.
+- Sesi berakhir otomatis setelah 30 menit tidak aktif.
+- Lihat detail keamanan di [SECURITY.md](SECURITY.md).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 🖥 PWA
+
+Untuk mengaktifkan instalasi PWA, build produksi dijalankan melalui HTTPS (atau localhost).
+Service worker di-registrasi otomatis saat `NODE_ENV === 'production'` (`src/index.js`).
+
+---
+
+## 🤝 Kontribusi
+
+Silakan baca [CONTRIBUTING.md](CONTRIBUTING.md) sebelum berkontribusi.
+
+## 📜 Lisensi
+
+Proyek ini dilisensikan di bawah [Lisensi MIT](LICENSE).
+
+---
+
+## 📌 Kontak
+
+- **WhatsApp:** +62 815-4654-3913
+- **Email:** [mansx.develover@gmail.com](mailto:mansx.develover@gmail.com)
+- **Instagram:** [@shophosting](https://instagram.com/shophosting)

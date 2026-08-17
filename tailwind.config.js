@@ -1,10 +1,67 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Sora', 'Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+    },
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        dark: {
+          "primary": "#818cf8",
+          "primary-content": "#0b1020",
+          "secondary": "#c084fc",
+          "secondary-content": "#0b1020",
+          "accent": "#22d3ee",
+          "accent-content": "#0b1020",
+          "neutral": "#1e293b",
+          "neutral-content": "#e2e8f0",
+          "base-100": "#0b1120",
+          "base-200": "#0f172a",
+          "base-300": "#1e293b",
+          "base-content": "#e2e8f0",
+          "info": "#38bdf8",
+          "info-content": "#0b1020",
+          "success": "#34d399",
+          "success-content": "#0b1020",
+          "warning": "#fbbf24",
+          "warning-content": "#0b1020",
+          "error": "#f87171",
+          "error-content": "#0b1020",
+        },
+      },
+      {
+        light: {
+          "primary": "#6366f1",
+          "primary-content": "#ffffff",
+          "secondary": "#a855f7",
+          "secondary-content": "#ffffff",
+          "accent": "#06b6d4",
+          "accent-content": "#ffffff",
+          "neutral": "#334155",
+          "neutral-content": "#f8fafc",
+          "base-100": "#ffffff",
+          "base-200": "#f1f5f9",
+          "base-300": "#e2e8f0",
+          "base-content": "#1e293b",
+          "info": "#0ea5e9",
+          "info-content": "#ffffff",
+          "success": "#10b981",
+          "success-content": "#ffffff",
+          "warning": "#f59e0b",
+          "warning-content": "#ffffff",
+          "error": "#ef4444",
+          "error-content": "#ffffff",
+        },
+      },
+    ],
+    darkTheme: "dark",
+    logs: false,
+  },
 }
