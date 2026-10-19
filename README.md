@@ -1,14 +1,18 @@
-# MansX.Dev — Solusi Digital
+# MansX.Dev — Demo Toko Online + Panel Admin
 
 [![React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38bdf8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![daisyUI](https://img.shields.io/badge/daisyUI-3.9-5a0ef8?logo=daisyui&logoColor=white)](https://daisyui.com)
 [![PWA](https://img.shields.io/badge/PWA-ready-5A0FC8)](#-progressive-web-app)
 
-Website bisnis satu halaman (single-page application) untuk jasa & produk digital — VPS,
-bot WhatsApp, pembuatan website, SEO, dan desain grafis — dilengkapi **toko online**, **keranjang
-belanja dengan checkout via WhatsApp**, dan **panel admin yang powerful** untuk mengelola seluruh
+**Proyek contoh** — situs bisnis satu halaman (single-page application) untuk jasa & produk
+digital: VPS, bot WhatsApp, pembuatan website, SEO, dan desain grafis. Dilengkapi **toko online**,
+**keranjang belanja dengan checkout via WhatsApp**, dan **panel admin** untuk mengelola seluruh
 data.
+
+> ⚠️ **Semua data di dalamnya contoh.** Produk, harga, testimoni, dan nomor telepon adalah data
+> contoh supaya tiap seksi terlihat dalam keadaan terisi — bukan penawaran yang sedang berjalan.
+> Dibuat oleh [MansxDev](https://github.com/MansxDev).
 
 Dibangun dengan **React 19** + **Tailwind CSS** + **daisyUI**, tanpa TypeScript dan tanpa
 React Router — tetap cepat, ringan, dan mudah di-deploy sebagai situs statis.
@@ -137,14 +141,51 @@ Seluruh data aplikasi disimpan di `localStorage` melalui `src/data/store.js`
 
 ---
 
+## 🖼 Gambar Produk
+
+Gambar produk di [`public/produk/`](public/produk) adalah **ilustrasi SVG hasil skrip**, bukan
+foto. Untuk membuat ulang:
+
+```bash
+node scripts/buat-gambar-produk.mjs
+```
+
+- **Kenapa dibuat sendiri:** sebelumnya seluruh 7 produk menunjuk ke *satu* gambar yang sama di
+  host sementara (`files.catbox.moe`) — tampilannya berulang dan gambarnya bisa hilang kapan saja
+  karena bukan milik kita.
+- Produk di sini berupa jasa digital (VPS, bot WhatsApp, website), jadi ilustrasi memang lebih
+  jujur daripada foto stok.
+- Warna mengikuti tema daisyUI; jumlah lampu pada motif rak server mengikuti tingkat paket
+  (Basic 1, Medium 2, Pro 3).
+- Tiap berkas ±3 KB, tajam di semua ukuran layar, tanpa permintaan ke server luar.
+
+Untuk produk baru: tambahkan satu baris pada daftar `PRODUK` di dalam skrip, lalu jalankan ulang.
+Kalau nanti sudah punya foto asli, cukup ganti nilai `image` di `src/data/products.js`.
+
+---
+
 ## 🔐 Panel Admin
 
 Akses panel admin dengan menambahkan **`#admin`** pada URL, contoh:
 `https://your-domain.com/#admin`.
 
-- **Password awal:** `admin123` — **wajib diganti saat login pertama**.
+- **Sandi demo:** `demo-mansxdev` — **wajib diganti saat login pertama**. Di layar masuk ada
+  tombol *Isi sandi demo* supaya tidak perlu diketik.
 - Sesi berakhir otomatis setelah 30 menit tidak aktif.
-- Lihat detail keamanan di [SECURITY.md](SECURITY.md).
+- Lihat detail keamanan dan batasannya di [SECURITY.md](SECURITY.md).
+
+### Kenapa sandi demo ditulis terbuka
+
+Aplikasi ini statis — seluruh kode terkirim ke peramban pengunjung. Sandi yang "disembunyikan" di
+dalam kode tetap bisa dibaca siapa pun, jadi menyembunyikannya tidak menambah keamanan sedikit
+pun; yang terjadi hanya demo ini tidak bisa dicoba orang lain. Yang benar-benar melindungi:
+
+1. Ganti sandi setelah masuk (dipaksa oleh flag `mustChange`).
+2. Panel admin **bukan** tempat penyimpanan data sensitif — semua isinya ada di
+   `localStorage` peramban, bukan di server.
+
+Kalau nanti butuh panel yang sungguhan (banyak admin, data pelanggan asli), panelnya harus
+dipindah ke server dengan login di sisi server.
 
 ---
 
@@ -169,4 +210,4 @@ Proyek ini dilisensikan di bawah [Lisensi MIT](LICENSE).
 
 - **WhatsApp:** +62 815-4654-3913
 - **Email:** [mansx.develover@gmail.com](mailto:mansx.develover@gmail.com)
-- **Instagram:** [@shophosting](https://instagram.com/shophosting)
+- **GitHub:** [@MansxDev](https://github.com/MansxDev)

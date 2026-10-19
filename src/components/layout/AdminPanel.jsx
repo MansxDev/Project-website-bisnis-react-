@@ -15,7 +15,7 @@ import {
 } from 'react-icons/fa6';
 import { useStore, KEYS } from '../../data/store.js';
 import { useAdminAuth } from '../../hooks/useAdminAuth.js';
-import { ensureAuth, lockStatus, logAudit } from '../../utils/auth.js';
+import { DEMO_PASSWORD, ensureAuth, lockStatus, logAudit } from '../../utils/auth.js';
 import AdminCrud from './admin/AdminCrud.jsx';
 import AdminDashboard from './admin/AdminDashboard.jsx';
 import AdminMessages from './admin/AdminMessages.jsx';
@@ -137,6 +137,25 @@ const AdminLogin = ({ onLogin, loginError }) => {
             {loading ? 'Memverifikasi...' : 'Masuk'}
           </button>
         </form>
+
+        {/* Sandi demo ditampilkan terbuka: panel ini berjalan di browser dan
+            datanya hanya di localStorage, jadi sandi di sini bukan pengamanan
+            sungguhan (lihat catatan di src/utils/auth.js). */}
+        <div className="mt-6 rounded-xl border border-base-content/10 bg-base-200/60 p-3">
+          <p className="text-xs text-base-content/70 leading-relaxed">
+            <span className="font-semibold">Mode demo.</span> Sandi awal:{' '}
+            <code className="rounded bg-base-300 px-1.5 py-0.5 font-mono">{DEMO_PASSWORD}</code> —
+            wajib diganti setelah masuk.
+          </p>
+          <button
+            type="button"
+            className="btn btn-xs btn-outline mt-2"
+            onClick={() => setInput(DEMO_PASSWORD)}
+            disabled={lockLeft > 0}
+          >
+            Isi sandi demo
+          </button>
+        </div>
       </div>
     </div>
   );

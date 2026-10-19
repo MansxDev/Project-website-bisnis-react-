@@ -8,8 +8,9 @@ beforeEach(() => {
 });
 
 test('migrasi dari password lama + login sukses', async () => {
-  store.set(KEYS.settings, { ...store.get(KEYS.settings), adminPassword: 'admin123' });
-  const res = await auth.login('admin123');
+  // Meniru instalasi lama yang menyimpan sandi apa adanya di settings.
+  store.set(KEYS.settings, { ...store.get(KEYS.settings), adminPassword: 'sandi-lama-lama' });
+  const res = await auth.login('sandi-lama-lama');
   expect(res.ok).toBe(true);
   expect(res.mustChange).toBe(true);
   expect(auth.isAuthed()).toBe(true);
@@ -34,18 +35,19 @@ test('lockout setelah 5 percobaan gagal', async () => {
 });
 
 test('verify + changePassword + verify password baru', async () => {
-  await auth.login('admin123');
+  const awal = auth.DEMO_PASSWORD;
+  await auth.login(awal);
   const wrong = await auth.verify('salah');
   expect(wrong).toBe(false);
-  const bad = await auth.changePassword('admin123', '123');
+  const bad = await auth.changePassword(awal, '123');
   expect(bad.ok).toBe(false);
-  const same = await auth.changePassword('admin123', 'admin123');
+  const same = await auth.changePassword(awal, awal);
   expect(same.ok).toBe(false);
-  const chg = await auth.changePassword('admin123', 'rahasia123');
+  const chg = await auth.changePassword(awal, 'rahasia123');
   expect(chg.ok).toBe(true);
   expect(auth.needsPasswordChange()).toBe(false);
   expect(await auth.verify('rahasia123')).toBe(true);
-  expect(await auth.verify('admin123')).toBe(false);
+  expect(await auth.verify(awal)).toBe(false);
 });
 
 test('hashPassword deterministik + salt berbeda', async () => {

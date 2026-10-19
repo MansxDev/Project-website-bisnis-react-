@@ -2,7 +2,22 @@ import { store, KEYS } from '../data/store.js';
 
 const AUTH_KEY = 'mansx_auth';
 const SESSION_KEY = 'mansx_admin_session';
-const DEFAULT_PASSWORD = 'admin123';
+
+/**
+ * Sandi awal panel admin.
+ *
+ * Ditulis terbuka dengan sengaja. Panel ini berjalan sepenuhnya di browser
+ * (datanya di localStorage), jadi sandi di sini hanya menghalangi orang iseng
+ * membuka panel di perangkat yang sama — bukan pengamanan sungguhan.
+ * Menyembunyikannya tidak menambah keamanan apa pun, dan membuat demo ini
+ * tidak bisa dicoba orang lain.
+ *
+ * Setelah masuk, pemakainya wajib menggantinya (lihat `mustChange` di
+ * `ensureAuth`). Untuk pemakaian sungguhan, panel admin harus dipindah ke
+ * server dengan login yang sebenarnya — lihat catatan di README.
+ */
+export const DEMO_PASSWORD = 'demo-mansxdev';
+
 const SESSION_MS = 30 * 60 * 1000;
 const MAX_ATTEMPTS = 5;
 const BASE_LOCK_MS = 30 * 1000;
@@ -117,7 +132,7 @@ export function needsPasswordChange() {
 export async function ensureAuth() {
   if (loadAuth()) return;
   const settings = store.get(KEYS.settings);
-  const oldPass = (settings && settings.adminPassword) || DEFAULT_PASSWORD;
+  const oldPass = (settings && settings.adminPassword) || DEMO_PASSWORD;
   const salt = makeSalt();
   const hash = await hashPassword(oldPass, salt);
   saveAuth({ salt, hash, attempts: 0, lockCount: 0, lockedUntil: 0, mustChange: true });

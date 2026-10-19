@@ -11,8 +11,13 @@ akses tidak sah dan penyalahgunaan lokal.
 - **Password ter-hash** — password tidak pernah disimpan sebagai teks biasa. Disimpan sebagai
   hash **SHA-256 berulang 5.000x** dengan **salt acak 128-bit** dan **pepper** (via Web Crypto
   API). Pada konteks non-HTTPS, digunakan fallback hash untuk menjaga fungsi tetap berjalan.
-- **Migrasi otomatis** — password lama (`admin123`) dipindahkan ke bentuk hash saat pertama
-  login, lalu dihapus dari penyimpanan. Flag `mustChange` memaksa penggantian password default.
+- **Migrasi otomatis** — password lama dari versi sebelumnya dipindahkan ke bentuk hash saat
+  pertama login, lalu dihapus dari penyimpanan. Flag `mustChange` memaksa penggantian password
+  default.
+- **Sandi demo terbuka (disengaja)** — sandi awal `demo-mansxdev` ditulis di README dan di layar
+  login. Ini bukan kelalaian: sebagai situs statis, seluruh kode terkirim ke peramban, jadi sandi
+  itu memang tidak bisa dirahasiakan. Menyembunyikannya hanya membuat demo tidak bisa dicoba.
+  Yang melindungi adalah kewajiban menggantinya setelah masuk.
 - **Penguncian akun (lockout)** — 5 kali login gagal mengunci akses dengan cooldown eksponensial
   (30s → 60s → 120s → …, maks 30 menit). Status kunci persisten di `localStorage`.
 - **Sesi dengan batas waktu** — token sesi di `sessionStorage` (hilang saat tab ditutup) dan

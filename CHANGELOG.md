@@ -7,6 +7,29 @@ versi mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ## [Unreleased]
 
+### Fixed
+- **Gambar produk:** seluruh produk sebelumnya menunjuk ke satu URL yang sama di host sementara
+  (`files.catbox.moe`) — tampilannya berulang dan gambarnya bisa hilang kapan saja. Diganti
+  ilustrasi SVG lokal di `public/produk/` yang dibuat oleh `scripts/buat-gambar-produk.mjs`.
+  Field `image` pada layanan yang tidak pernah dipakai komponen mana pun juga dihapus.
+- **Judul hero:** H1 sebelumnya hanya berbunyi "Wujudkan" — satu kata, kalimatnya tidak selesai.
+  Dilengkapi menjadi "Wujudkan usaha digitalmu".
+- **Tautan mati:** ikon sosial yang tidak diisi tidak lagi dirender sebagai `href="#"`. GitHub
+  diarahkan ke profil pemilik, dan tautan ke akun milik orang lain (`instagram.com/shophosting`)
+  dihapus.
+
+### Changed
+- **Sandi admin demo:** `admin123` → `demo-mansxdev`, ditampilkan terbuka di layar login (dengan
+  tombol *Isi sandi demo*) dan didokumentasikan di README serta SECURITY.md. Tetap wajib diganti
+  setelah masuk.
+- **Statistik hero:** "50+ Klien Puas" dan "100+ Proyek Selesai" — angka yang tidak pernah benar
+  — diganti angka yang benar-benar diambil dari data: jumlah produk, jumlah layanan, dan janji
+  balasan WhatsApp di bawah 24 jam.
+- **Klaim yang tidak bisa ditepati:** "Support 24/7" pada layanan hosting diganti "Bantuan
+  WhatsApp", dan masa garansi bug di FAQ diselaraskan menjadi 14 hari.
+- **Label demo:** hero dan seksi testimoni menyatakan bahwa seluruh isi di halaman ini data
+  contoh.
+
 ## [1.0.0] - 2026-08-17
 
 ### Added

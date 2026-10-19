@@ -26,12 +26,14 @@ export const DEFAULTS = {
   audit: [],
   settings: {
     businessName: 'MansX.Dev',
-    tagline: 'Memberikan solusi digital terbaik sejak 2025.',
+    tagline: 'Situs contoh toko online + panel admin, dibuat oleh MansxDev.',
     phone: '6281546543913',
     email: 'mansx.develover@gmail.com',
-    instagram: 'https://instagram.com/shophosting',
-    facebook: 'https://facebook.com/shophosting',
-    github: 'https://github.com',
+    // Dibiarkan kosong kalau memang belum punya akunnya — lebih baik tidak
+    // ditampilkan daripada menautkan ke akun orang lain.
+    instagram: '',
+    facebook: '',
+    github: 'https://github.com/MansxDev',
   },
 };
 

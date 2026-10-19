@@ -21,7 +21,7 @@ export const faqData = [
     id: 'f4',
     question: 'Apakah ada garansi atau dukungan setelah selesai?',
     answer:
-      'Ya. Setiap proyek termasuk garansi perbaikan bug selama 1 bulan dan dukungan teknis berlanjut. Untuk layanan berlangganan seperti VPS dan hosting, support tersedia 24/7.',
+      'Ya. Setiap proyek termasuk perbaikan bug gratis selama 14 hari setelah serah terima. Setelah itu, perubahan konten dan perbaikan lanjutan masuk paket maintenance bulanan. Untuk VPS dan hosting, dukungan mengikuti penyedia layanannya.',
   },
   {
     id: 'f5',

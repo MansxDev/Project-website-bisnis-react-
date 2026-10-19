@@ -139,7 +139,11 @@ function App() {
       />
       <UtilityCluster {...cartProps} theme={theme} toggleTheme={toggleTheme} />
       <main>
-        <HeroSection scrollToSection={scrollToSection} />
+        <HeroSection
+          scrollToSection={scrollToSection}
+          jumlahProduk={products.length}
+          jumlahLayanan={services.length}
+        />
         <ProductSection products={products} addToCart={addToCart} />
         <ServiceSection services={services} />
         <TestimonialSection />

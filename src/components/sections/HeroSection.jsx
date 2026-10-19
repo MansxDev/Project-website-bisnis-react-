@@ -2,13 +2,16 @@ import React from 'react';
 import BlurText from '../animations/BlurText.js';
 import RotatingText from '../animations/RotatingText.js';
 
-const STATS = [
-  { value: '50+', label: 'Klien Puas' },
-  { value: '100+', label: 'Proyek Selesai' },
-  { value: '24/7', label: 'Dukungan' },
-];
+const HeroSection = ({ scrollToSection, jumlahProduk = 0, jumlahLayanan = 0 }) => {
+  // Angka di bawah diambil dari data yang benar-benar ada (bukan klaim).
+  // Sebelumnya tertulis "50+ Klien Puas" dan "100+ Proyek Selesai" — angka
+  // yang tidak pernah benar, dan justru merusak kepercayaan kalau diketahui.
+  const STATS = [
+    { value: String(jumlahProduk), label: 'Produk siap order' },
+    { value: String(jumlahLayanan), label: 'Layanan' },
+    { value: '< 24 jam', label: 'Balasan WhatsApp' },
+  ];
 
-const HeroSection = ({ scrollToSection }) => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-16">
       <div className="absolute inset-0 animated-gradient opacity-20" aria-hidden="true" />
@@ -18,12 +21,12 @@ const HeroSection = ({ scrollToSection }) => {
       <div className="hero-content text-center relative z-10 px-4">
         <div className="max-w-3xl mx-auto">
           <div className="badge badge-primary badge-outline px-4 py-3 mb-6 text-xs sm:text-sm">
-            Solusi Digital Terpercaya
+            Solusi Digital untuk UMKM
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight">
             <BlurText
-              text="Wujudkan"
+              text="Wujudkan usaha digitalmu"
               delay={150}
               animateBy="words"
               direction="top"
@@ -77,6 +80,11 @@ const HeroSection = ({ scrollToSection }) => {
               </div>
             ))}
           </div>
+
+          <p className="mt-10 mx-auto max-w-md text-xs sm:text-sm text-base-content/70 rounded-xl border border-base-content/10 bg-base-200/50 px-4 py-3">
+            Ini <span className="font-semibold">situs demo</span>. Seluruh produk, harga, dan
+            testimoni di sini hanya contoh — bukan penawaran yang sedang berjalan.
+          </p>
         </div>
       </div>
     </section>

@@ -21,7 +21,7 @@ const TestimonialSection = () => {
     <section className="container mx-auto px-4 py-10" id="testimonial-section">
       <SectionHeading
         title="Apa Kata Mereka"
-        subtitle="Kepercayaan pelanggan adalah prioritas kami. Berikut testimoni mereka."
+        subtitle="Contoh tampilan seksi testimoni. Nama dan isi di bawah ini data contoh — bukan dari klien sungguhan."
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

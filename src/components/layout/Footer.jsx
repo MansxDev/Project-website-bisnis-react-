@@ -37,12 +37,14 @@ const Footer = () => {
   const settings = useStore(KEYS.settings);
   const year = new Date().getFullYear();
 
+  // Hanya tampilkan tautan yang benar-benar diisi. Sebelumnya yang kosong
+  // dirender sebagai "#" — tautan mati yang terlihat seperti tombol rusak.
   const socials = [
-    { label: 'Instagram', href: settings.instagram || '#', icon: FaInstagram },
-    { label: 'Facebook', href: settings.facebook || '#', icon: FaFacebookF },
-    { label: 'GitHub', href: settings.github || '#', icon: FaGithub },
+    settings.instagram && { label: 'Instagram', href: settings.instagram, icon: FaInstagram },
+    settings.facebook && { label: 'Facebook', href: settings.facebook, icon: FaFacebookF },
+    settings.github && { label: 'GitHub', href: settings.github, icon: FaGithub },
     { label: 'WhatsApp', href: `https://wa.me/${settings.phone}`, icon: FaWhatsapp },
-  ];
+  ].filter(Boolean);
 
   return (
     <footer className="bg-base-200 text-base-content border-t border-base-300">
